@@ -1,0 +1,455 @@
+<div align="center">
+  <a href="https://discordapp.com/oauth2/authorize?client_id=158603970535751680&scope=bot"><img src="https://cdn.discordapp.com/avatars/123723266262040576/92ba578459d8a0bd318932257cf5ddfb.png?size=256" align="center" width="256" height="256" alt="NeoBot"></a><br>
+  <a href="https://discordapp.com/oauth2/authorize?client_id=158603970535751680&scope=bot">Add me to your server!</a> • <a href="https://discord.gg/XxStEkSMt8">BetterNeo's Server</a>
+</div>
+
+# BetterNeo
+
+> A giant bot for the community of a small game.
+
+# Contents
+- [Notes](#notes)
+  - [Commands? What?](#commands-what)
+  - [Pinning](#pinning)
+- [Food Club System](#food-club-system)
+  - [Info](#info)
+  - [Food Club Commands](#food-club-commands)
+- [Commands](#commands)
+  - [Botspam](#botspam)
+  - [Config](#config)
+  - [Giveaways](#giveaways)
+  - [Meta](#meta)
+  - [Mod](#mod)
+  - [Neopets](#neopets)
+  - [Reminders](#reminders)
+  - [Stars](#stars)
+  - [Stocks](#stocks)
+  - [Utilities](#utilities)
+- [Event Commands](#event-commands)
+  - [Altador Cup](#altador-cup)
+- [Donations](#donations)
+
+# Notes
+
+## Commands? What?
+There's many commands, and most are straightforward to use. Hopefully, having everything here where you can scroll through at your leisure will make things seem a little less scary.
+
+| Key | Info |
+|:---:|:-----|
+| **Prefix** | Commands can be prefixed with `!` or `?` |
+| **Aliases** | `![command\|alias]` |
+| \<argument\> | This means the argument is __**required**__. |
+| [argument=100] | This means the argument is __**optional**__, and the default value is **100**. |
+| [A\|B] | This means that it can be __**either A or B**__. |
+| [argument...] | This means you can have multiple arguments. |
+
+For example:
+
+The `help` command has an alias `halp`, so `!help`, `?help`, `!halp`, `?halp` will all pull up the same help command.
+
+Now that you know the basics, it should be noted that...
+__**You do not type in the brackets!**__
+
+
+[⬆ Back to top](#contents)
+
+## Pinning
+We have a pin system in Darigan Citadel that lets you advertise what you're buying/selling in ***#trading***, and UFT/UFA pets in ***#poundchat*** + ***#customization***.
+
+| Input | Info |
+|:-----:|:-----|
+| `!pin` command | Allows you to pin the message. |
+| Self-react with 📌 | ^ Ditto. |
+
+After 24h, or if you pin another message, your previous pinned message will be taken down.
+
+[⬆ Back to top](#contents)
+
+# Food Club System
+
+## Info
+- BetterNeo has a system based upon "subscribing" to your bet set. This allows each member to keep track of their FC bets, and keep records!
+- BetterNeo can even make bets tailored for your max bet amount, called `max TER` (or `Maximum Total Expected Return`).
+  - Basically it's the most mathematically profitable set for your bet amount, while still being likely to win.
+- BetterNeo's bet system uses *only* https://neofood.club/ + https://foodclub.neocities.org/ -compatible bet URLs. (sometimes referred to as "NFC URLs")
+- Sending a compatible bet URL will have BetterNeo show an embed with the bet's details, chances of winning etc.
+  - Clicking the <img src="https://cdn.discordapp.com/emojis/406939315872989184.png" height="32" width="32"> reaction provided will subscribe you to that set for the round.
+    - Another way to subscribe is using the `!bet [foodcluburl]` command.
+    - *Since results will be posted there...* Subscribing is only possible if you are in the Darigan Citadel server.
+- You may only subscribe to one set per round.
+  - Subscribing to one and then another will replace your first one.
+- If your subscribed bet wins, you will be pinged in ***#foodclub*** in the Darigan Citadel server when the round ends.
+  - If you bust, you'll only be pinged if you have the `Food Club Busters` role.
+  - If you'd like to be reminded to bet at 3 PM NST, you may want the `Food Club Remindee` role.
+  - See [Subscribable Roles](#subscribable-roles) for more info on those.
+- For more in-depth Food Club info, please refer to the pins in ***#foodclub*** in the Darigan Citadel server!
+
+[⬆ Back to top](#contents)
+
+## Food Club Commands
+These commands are powerful + modular in the sense that you can now prefix some of them (please note the "Aliases" column) with any of `g`, `r`, or `o`, for General (generated with bet amount not being in the equation) sets, Reverse (sorted from worst to best) sets, and Opening-odds (will use opening odds instead of current odds to make the set), respectively.
+
+You can mix and match, assuming the aliases are listed. `!orgmer` for example will give you MER with reverse general bets that use opening odds, and so on. If they're listed below, it's possible.
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!arenas [round_number=0]` | *none* | Displays the current round (or round of your choosing)'s arena stats. |
+| `!bet [foodcluburl]` | *none* | Manually subscribes you to be tagged if the bet URL you submit wins! Any of the bet-making commands, or posting a bet URL alone will allow you to do this with a reaction. Sending this command with no URL shows your current subscribed bet. |
+| `!bet random [query]` | `r` | Makes a randomized set from your 100 best bets. *(Based on net expected!)* |
+| `!bet unsub` | *none* | Unsubscribe from your current bet. |
+| `!betsim [arguments]` | *none* | An advanced command to simulate previous food club rounds, using bets tweaked with settings you choose.<br>This command uses a powerful "command line" syntax.<br><br>The following options are valid.<br>`--maxbet <amount>`: Sets the max bet for the simulator. *Default 8,000. Max 500,000. Min 50.*<br>`--units <amount>`: Sets the ?units amount for the simulator. *Default 20. Max 371,293. (Highest possible, 13^5)*<br>`--rounds <amount>`: Sets the amount of previous rounds to simulate, starting from yesterdays.<br>`--from <bet_round>`: Simulator will start calculating from this round.<br>`--to <bet_round>`: If `--from` is set, this will be the round the simulator stops at (inclusive). This does not work without `--from`. Defaults to current round.<br><br>Flag options (no arguments):<br>`--tenbet`: Simulator will only do tenbets for each pirate instead of anything else.<br>`--all`: Simulator includes all combinations of ?mer.<br>`--debug`: Show benchmarking stats for the simulation data.<br>`--nochart`: Hide the large table of data, and only show the image.<br>`--month`: Simulator will only calculate rounds from this month.<br>`--year`: Simulator will only calculate rounds from this calendar year.<br><br>NOTES:<br>You cannot mix and match the flags that change the amount of rounds that will be calculated. |
+| `!bustproof [query]` | `bp` | Generates bust-proof bets for the current FC round, given there are any positive arenas. Be sure to follow the amounts given in the URL! |
+| `!compare <pirate1> <pirate2>` | *none* | Compares two pirates' win rate when they're playing the same arena. |
+| `!crazy [max_bet] [query]` | *none* | Makes a set that has 5 pirates in each bet. Crazy? Yes. Unlikely? Also yes. |
+| `!fcage <amount>` | *none* | Shows the account age required for a specific FC max bet amount. |
+| `!fcdata` | *none* | Sends a spreadsheet-importable file to you of your previous subscribed Food Club bets. |
+| `!fcspreadsheet` | *none* | Generates 5 spreadsheet-importable CSV files in a .zip of previous Food Club round data. Feel free to make fancy graphs or something with this data!<br><br>The files included are:<br>- arenas.csv for arena data (S=Shipwreck, L=Lagoon, T=Treasure Island, C=Hidden Cove, H=Harpoon Harry’s)<br>- fas.csv for FA (food adjustment) data<br>- opening_odds.csv for opening odds data<br>- closing_odds.csv for closing odds data<br>- results.csv for win/loss (1 for win, 0 for loss) data. Note that early FA data was not available and is left to say None. |
+| `!fcstats` | *none* | Shows win percentage of all pirates. |
+| `!foodclub [member]` | `fc` | Shows statistics of the Food Club Subscriptions of the server as a whole, or a member. Only counts previous rounds. |
+| `!foodclub leaderboard` | `lb` | Shows the leaderboard for subscribed bets. *Must have bet 30+ times, and have to have done a bet in the last 30 days to be eligible for calculation.* |
+| `!gambit [pirates...] [max_bet] [query]` | `ogambit`, `rgambit` | Generates a gambit set for the current round. It's basically a set utilizing the top pirate from each arena ***UNLESS*** you pass five pirate names (order doesn't matter). |
+| `!gambit build [max_bet] [query]` | *none* | Brings up Discord select menus so you can choose 5 pirates with which to make a gambit. |
+| `!gambit random [query]` | `r` | Generates a random gambit set for the current round. Please don't use this if you want to win. |
+| `!gates` | *none* | Shows the current Food Club gates' status. |
+| `!giveround [round_number]` | *none* | Gives you the JSON file of the desired Food Club round. |
+| `!giverounds` | *none* | Gives you the JSON files of the Food Club rounds in a zip file. |
+| `!maxbet <amount>` | `mb` | Sets your internal bet amount to \<amount\> NP. The bet-making commands will use this number by default. Override this by passing a [max_bet] parameter to those commands otherwise. Amount must be an even number between 50 and 500,000 inclusive. Set to 0 to un-set. Best to set this *before* a round ends, as it increments *after* each round. |
+| `!maxter [max_bet] [query]` | `mer`, `gmer`, `omer`, `rmer` | Generates the top 10 max TER bets for the current FC round. (Override your darigancitadel-held max_bet from `!maxbet` in this command by using `!gmer` for general bets or by setting an amount) |
+| `!tenbet <pirates...> [max_bet]` | `gtenbet`, `otenbet`, `rtenbet` | Makes a ten-bet set of up to three pirates. First names only, and some nicknames will work. |
+| `!tenbet random [query]` | `r` | Generates a random tenbet set for the current round. |
+| `!units <units> [max_bet] [query]` | `ounits` | Makes a set which is most likely to hit *at least* the amount of units you enter. |
+| `!wgambit [round_number]` | *none* | Shows the best winning gambit for a given previous round. I know you're curious so the best round so far is 6255. |
+| `!ybet [round_number]` | *none* | Shows your subscribed bet for a previous round. |
+
+
+
+### Food Club Command Queries
+All of the bet commands that have a `[query]` parameter are flexible. The possibilities are powerful, and a bit intermediate in terms of difficulty, but some people will find this all very useful. Resulting bets will be annotated with successful changes, if any occurred. The examples below will be using ?mer, but again these will work with other commands as well.
+
+| Query Usage | Description |
+|:-----------:|:------------|
+| `?mer goob 3 dan 5` | This changes the odds for Goob to be 3, and for Dan to be 5.<br>*You can do all the pirates if you wanted.*<br>This usually drastically changes bets, *so if you need it you'd know*. |
+| `?mer --round 6969` | The usage example will output the MER bet using the closing odds of round 6969. |
+| `?mer --round -1` | A shorthand way to generate MER for the previous round.<br>You can do `-2` for the day before that, and so on. |
+| `?mer --time 4PM` | The usage example will output the current round's MER output for 4PM.<br><br>At the time of writing, that's about 20 minutes after the round started.<br><br>This is for when you want odds from a specific time of the day to calculate a bet set.<br><br>This has minute precision, so you can do `?mer --time 4:20PM`.<br><br>***Time is in NST, and AM/PM is required!*** |
+| `?mer --round -1 --time 12PM` | This will give you yesterday's MER using the odds from Noon NST. |
+
+
+
+
+[⬆ Back to top](#contents)
+
+# Commands
+
+## Botspam
+Non-useful, fun commands.
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!bigemoji <face>` | `be` | BIG EMOJIS |
+| `!cat` | `meow` | RANDOM CAT PICTURE. |
+| `!compliment` | *none* | RANDOM COMPLIMENT. |
+| `!conch <words>` | `8ball` | ASKETH AWAY. |
+| `!cow [moo]` | `cowsay` | MOO! |
+| `!deepfry [to_fry]` | `df`, `fry` | Deep-fries a URL, emoji, or attached image. |
+| `!dog` | `doggo`, `pupper`, `yapper`, `woof` | RANDOM DOG PICTURE. |
+| `!fakeneoboard <message>` | `fnb` | Create a fake neoboard post screenshot, because people on Neopets will say anything anyways! |
+| `!fancy <text>` | *none* | FANCIES UP YOUR TEXT. |
+| `!fnbc <message>` | *none* | Create a fake neoboard post screenshot *using the classic board look and feel*, because people on Neopets will say anything anyways! |
+| `!fortune` | *none* | RANDOM FORTUNE. |
+| `!fusepkmn [body=0]` | `fuse`, `fusion` | RANDOM FIRST-GEN FUSION |
+| `!indicators <text>` | `i` | CONVERT ALL LETTERS TO LETTER INDICATORS |
+| `!inspirome` | `inspiro` | RANDOM INSPIRATIONAL IMAGE. |
+| `!insult` | *none* | RANDOM INSULT. 735,907,900 different insults. |
+| `!owo <text>` | *none* | oWo what's this |
+| `!pkmn` | `pokemon` | RANDOM POKEMON. 1% chance of shiny. |
+| `!pyramid <character>` | *none* | MAKES A PYRAMID OF THE CHARACTER GIVEN. |
+| `!spongemock <text>` | `mock` | MaKEs a mockeRY OF yOur TexT |
+| `!startext [text]` | *none* | STAR TEXT. 25 LENGTH MAX |
+| `!xkcd [comic_id=0]` | *none* | XKCD COMICS! |
+| `!yell <words>` | `cyell`, `dyell`, `shout` | LOUD NOISES!!! |
+| `!zalgo [text]` | *none* | HE COMES. |
+
+
+
+[⬆ Back to top](#contents)
+
+## Config
+Handles the bot's configuration system.
+
+This is how you disable or enable certain commands for your server or block certain channels or members.
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!config` | *none* | Handles the server or channel permission configuration for the bot. |
+| `!config ignore [entities...]` | `plonk` | Ignores text channels or members from using the bot.<br><br>If no channel or member is specified, the current channel is ignored.<br><br>Users with Manage Server permissions can still use the bot, regardless of ignore<br>status.<br><br>To use this command you must have Ban Members permissions. |
+| `!config ignore all` | *none* | Ignores every channel in the server from being processed.<br><br>This works by adding every channel that the server currently has into<br>the ignore list. If more channels are added then they will have to be<br>ignored by using the ignore command.<br><br>To use this command you must have Ban Members permissions. |
+| `!config ignore clear` | *none* | Clears all the currently set ignores for the server.<br><br>To use this command you must have Ban Members permissions. |
+| `!config ignore list` | *none* | Tells you what channels or members are currently ignored in this server.<br><br>To use this command you must have Ban Members permissions. |
+| `!config unignore [entities...]` | `unplonk` | Allows channels or members to use the bot again.<br><br>If nothing is specified, it unignores the current channel.<br><br>To use this command you must have the Ban Members permission. |
+| `!config unignore all` | *none* | An alias for ignore clear command. |
+
+
+
+[⬆ Back to top](#contents)
+
+## Giveaways
+Host a giveaway in Darigan Citadel, if you'd like!
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!giveaway` | *none* | Interactively creates a giveaway request, which will be approved/denied by mods ASAP! |
+| `!giveaway end <message_id>` | *none* | End a giveaway using the original giveaway message ID. *Darigan Citadel mods only* |
+| `!giveaway reroll <message_id> [amount_of_winners]` | *none* | Reroll a giveaway using the original giveaway message ID. *Darigan Citadel mods only* |
+| `!giveaway winners <message_id>` | *none* | Get the winners of a giveaway using the original giveaway message ID. *Darigan Citadel mods only* |
+
+
+
+[⬆ Back to top](#contents)
+
+## Meta
+Commands for utilities related to Discord or BetterNeo itself.
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!about` | `info` | Shows BetterNeo's info. |
+| `!commandstats [member]` | `cstats` | Tells you command usage stats for the server or a member. |
+| `!help` | `halp` | Links to the help page. |
+| `!ping` | *none* | Pongs when you ping. |
+| `!prefix` | *none* | Manages the server's custom prefixes.<br><br>If called without a subcommand, this will list the currently set<br>prefixes. |
+| `!prefix add <prefix>` | *none* | Appends a prefix to the list of custom prefixes.<br><br>Previously set prefixes are not overridden.<br>To have a word prefix, you should quote it and end it with<br>a space, e.g. "hello " to set the prefix to "hello ". This<br>is because Discord removes spaces when sending messages so<br>the spaces are not preserved.<br><br>Multi-word prefixes must be quoted also.<br><br>You must have Manage Server permission to use this command. |
+| `!prefix clear` | *none* | Removes all custom prefixes.<br><br>After this, the bot will listen to only mention prefixes.<br><br>You must have Manage Server permission to use this command. |
+| `!prefix remove <prefix>` | `delete` | Removes a prefix from the list of custom prefixes.<br><br>This is the inverse of the 'prefix add' command. You can<br>use this to remove prefixes from the default set as well.<br><br>You must have Manage Server permission to use this command. |
+| `!stats` | `s` | Shows server stats. |
+| `!userinfo [user]` | `ui` | Shows user info. |
+| `!wipe` | *none* | Wipe PMs from the bot to you! |
+
+
+
+[⬆ Back to top](#contents)
+
+## Mod
+Moderation related commands. Completely optional, if you don't want BetterNeo to do these things, simply do not grant the permissions.
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!ban [members]... [reason]` | *none* | Bans members from the server. Can be more than one!<br><br>You can also ban from ID to ban regardless whether they're in the server or not.<br><br>In order for this to work, you AND the bot must have Ban Member permissions. |
+| `!kick [members]... [reason]` | *none* | Kicks members from the server. Can be more than one!<br><br>In order for this to work, you AND the bot must have Kick Member permissions. |
+| `!listrole <this_role>` | *none* | Shows a list of members with the role name/ID provided, sorted by join date. This has its uses.<br><br>You must have the Kick Members permission to use this. |
+| `!newusers [count=5]` | `newmembers` | Tells you the newest members of the server.<br>This is useful to check if any suspicious members have<br>joined.<br>The count parameter can only be up to 25. |
+| `!rolestats [this_role]` | *none* | Shows the amount of people that have each role. These numbers overlap, as it's per role per person.<br><br>You may optionally pass a role name/ID to just show that role's stats.<br><br>You must have the Kick Members permission to use this. |
+| `!softban [members]... [reason]` | *none* | Soft bans a member from the server.<br><br>A softban is basically banning the member from the server but<br>then unbanning the member as well. This allows you to essentially<br>kick the member while removing their messages.<br><br>In order for this to work, the bot must have Ban Member permissions.<br><br>To use this command you must have Kick Members permissions. |
+| `!unban <member> [reason]` | *none* | Unbans a single member from the server.<br><br>You can pass either the ID of the banned member or the Name#Discriminator combination of the member. Typically the ID is easiest to use.<br><br>In order for this to work, you AND the bot must have Ban Member permissions. |
+
+
+
+[⬆ Back to top](#contents)
+
+## Neopets
+Neopets-related commands to make life easier.
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!ah [itemname]` | `auction` | Links to the Auction House search for an item. If no item is passed, sends only the Auction House url. |
+| `!ahu <username>` | `auctionuser`, `ahuser` | Links to the Auction House search for a user |
+| `!bank <amount>` | *none* | Shows the daily interest for a given bank balance. |
+| `!bc <petname>` | `beauty` | Returns pet's Beauty Contest URL. Only works *outside* of the Darigan Citadel server. |
+| `!bd <item>` | *none* | Pulls up Jellyneo Battlepedia items! |
+| `!bd random` | *none* | Pulls up random Jellyneo Battlepedia items! |
+| `!board <board_id>` | *none* | Links to a board of your choice, if it exists. |
+| `!bt [x=0] [y=0]` | `buriedtreasure` | Links to Buried Treasure with the optional coordinates |
+| `!closet [itemname]` | `c` | Links to the Closet search for an item. If no item is passed, sends only the Closet url. |
+| `!color <color> <species>` | `colour` | Shows image of the pet with color you want! Allows you to choose pet size, and emotion using reactions! |
+| `!color uc <color\|species> <species\|color>` | `unconverted` | Shows UC pet image, if it exists |
+| `!colors <color\|species>` | `colours`, `neocolours`, `neocolors`, `species` | Returns the Jellyneo Wardrobe Rainbow Pool page (or the page for the species or color you request) |
+| `!cure <disease>` | `cures`, `disease`, `diseases` | Sends JN items that'll cure (or might cure!) the sickness you enter. |
+| `!dti <item_name>` | *none* | Searches DTI for that wearable! |
+| `!dti stats` | *none* | Pull up DTI stats (how many pet colors, species, and combinations there are) |
+| `!dtipet <pet_name>` | `dtip` | This is an easy way to pull up a pet's wearables on DTI. May also be useful for when Neo's pet images aren't loading properly. |
+| `!gallery <username>` | `gal` | Links to the gallery of a user |
+| `!game <game_id_or_name>` | *none* | Links to a game of your choice, if it can be found. |
+| `!gourmet <petname>` | *none* | Returns a pet's gourmet food URL. |
+| `!hst <game_id_or_name>` | *none* | Links to a high-score-table of your choice, if it can be found. |
+| `!interest <desired>` | `int` | Shows how much NP you need in your bank to get to your desired daily interest. |
+| `!ipeel [species] [color]` | *none* | From the maker of the peeled command comes interactive peeling! Gather 'round with your friends and peel a pet of your liking. |
+| `!item <name>` | *none* | Shows item image of the item name given. |
+| `!items <petname>` | *none* | Shows items that a pet is wearing! |
+| `!jn <item>` | *none* | Search Jellyneo items! |
+| `!jn random` | *none* | Pulls up random Jellyneo items! |
+| `!jn random-petpet` | `random petpet` | Shows JN data of a random petpet. |
+| `!jn stats` | *none* | Brings up BetterNeo's internal JN stats. |
+| `!jn trivia [amount=4]` | *none* | Test your item knowledge! |
+| `!jne [query]` | *none* | Links to Jellyneo's editorial database. If no search query is passed, sends the main url. |
+| `!jnid <item_id>` | *none* | Search for a Jellyneo item by ID! |
+| `!jnw <jn_username>` | *none* | Links to a JN user's public wishlists. |
+| `!kads` | `k` | Tags Kads subscribers and links to page. Only works in the NEOPETS channel category. |
+| `!keyquest` | `kq` | Shows counter of when KQ should have been back. :) |
+| `!lottery [ref_ck]` | `lotto` | Generate some randomized, non-overlapping lottery ticket numbers. |
+| `!mail <username>` | `neomail`, `nm` | Links to neomailing a user |
+| `!missing <species\|color>` | *none* | Shows which colors a species is missing, or vice-versa. |
+| `!mystic <username>` | *none* | Outputs the next + previous date of the Island Mystic avatar date for a given username. |
+| `!naked <species> [color]` | *none* | Shows image of the pet with color you want, BUT... NAKED! |
+| `!neocashshuffle` | `ncs` | Tags the NC Shuffle role, and links to the NCC. Only works in the #customization channel. |
+| `!neocola` | *none* | Suggests Neocola Machine actions. |
+| `!nerkmid` | `nerks`, `nerk` | Suggests Nerkmid button/lever actions. |
+| `!nft [preferred_species_or_color]` | *none* | Create a randomly generated pet for the "blocked chain". Big value, such wow. |
+| `!nst` | *none* | Displays the current Neopets Standard Time. |
+| `!nt [article_id=0]` | `neopiantimes` | Pulls up the link for the associated Neopian Times entry. (Does not check for valid article IDs) |
+| `!peeled [species] [color]` | `peel` | Shows image of the pet with color you want, BUT... PEELED! Accepts no parameters, as well as any color/species (or both). |
+| `!pet <petname>` | *none* | Shows pet image and lookup of the pet name given. Allows you to choose pet size, and emotion using reactions! |
+| `!petauction` | `pah`, `pa` | Tags the Pet Auction House role, and links to the NCC. Only works in the #poundchat channel. |
+| `!petdays` | *none* | Lists all pet days for each month. |
+| `!pound <petname>` | `p` | Shows pet data + owner of pet name provided |
+| `!poundshuffle` | `pcs` | Tags the Pound Shuffle role, and links to the PC. Only works in the #poundchat channel. |
+| `!pp <petname>` | `~`, `petpage`, `petpg` | Returns petpage URL. |
+| `!questlender <item>` | `ql` | Tags Quest Lender role and links to the Trading Chat and links to the auction search for the item needed. |
+| `!rip` | `pepperoni` | Shows a gravestone image, because RIP. |
+| `!sdb [itemname]` | *none* | Links to SDB search for an item. If no item is passed, sends only the SDB url. |
+| `!search <query>` | *none* | Searches the bot's item db for items partially containing your query. Accepts wildcards. |
+| `!shop <shop_id>` | `mainshop`, `ms`, `swi` | Links to a main shop |
+| `!shopclear` | `sc` | Tags the Shop Clear role. Only works in the #restocking channel. |
+| `!shopsize <low> [high=0]` | `ss`, `gallerysize`, `gs` | Shows how much NP it takes to get to your desired shop/gallery size. |
+| `!stuckcheck <pet_name>` | `stuck` | Run the pet's name against a list of known stuck prefixes to see if it matches. |
+| `!stuckcheck show` | *none* | Shows the current stuck check prefix list! |
+| `!sw [itemname]` | `shopwiz`, `wiz` | Links to SW search for an item. If no item is passed, sends only the Shop Wizard url. |
+| `!symol` | `hole` | Outputs the Symol Hole window for the current, next hour, and tomorrow's window minute start time. |
+| `!tarla` | `t` | Tags Tarla subscribers and links to page. Only works in the NEOPETS channel category. |
+| `!tp [itemname]` | `tradingpost`, `trading` | Links to the TP search for an item. If no item is passed, sends only the Trading Post url. |
+| `!tpid <lot_number>` | `lot` | Links to the TP search for a specific lot. |
+| `!tpu <username>` | `tpuser` | Links to the TP search for a user |
+| `!trophy <game_id_or_name>` | *none* | Shows a trophy of the game of your choice, if it can be found. |
+| `!try [gender] [color] <species> [item1 \| item2 \| item3...]` | `wear` | Shows the pet you want with the item you chose, if it has been modeled on DTI before!<br><br>If you don't provide "female/male", one will be provided at random.<br><br>If you don't provide a color, a basic color will be provided at random.<br><br>If you have color-specific items (Maraquan etc), you *must* include the color in the query. |
+| `!tryon <pet_name> [items]` | `dtipadd` | A command to add items to a pet on DTI. Items should be separated with a `\|`. |
+| `!turmac` | `turmaculus`, `turmy` | Tags Turmac subscribers and links to page. Only works in the NEOPETS channel category. |
+| `!uhs <username>` | *none* | Links to the high scores of a user. |
+| `!unconverted` | `uc` | Cited sources of TNT answering on the topic of UCs returning. |
+| `!user <username>` | `un`, `luser`, `u`, `ul` | Links to the lookup of a user |
+| `!usershop <username>` | `us` | Links to the shop of a user |
+| `!wardrobe [itemname]` | `wd` | Links to the JN Wardrobe search for an item. If no item is passed, sends only the JN Wardrobe url. |
+| `!what [species\|color]` | *none* | Ever see the first Toy Story movie? This basically makes Neopets the way Sid made toys. |
+
+
+
+[⬆ Back to top](#contents)
+
+## Reminders
+These are mostly for the forgetful types.
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!pet_bday <pet_name> <pet_age_in_hours>` | `bday` | Sends you a ping on your pet's birthday. |
+| `!raw [when]` | *none* | Pings you in 24 hours to visit NC Archives Wheel, also provides a link. Alternatively, you can provide an amount of time.<br><br>Due to the nature of how the Archive Cookie works, this command is different than the others. When you hit the `Restart` button, it will use the time that the reacted message was created. To start fresh, you have to run the command manually. |
+| `!rbt [when]` | *none* | Pings you in 3 hours to visit Buried Treasure, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rcc [when]` | *none* | Pings you in 4 hours to visit Caption Contest, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rcs [when]` | *none* | Pings you in 13 hours to visit Coltzan's Shrine, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rds [when]` | *none* | Pings you in 4 hours to visit Lost Desert Scratchcard, also provides a link. Alternatively, you can provide an amount of time. |
+| `!remind <when> [note]` | `remindme`, `r`, `reminder`, `alert` | Reminds you of something after a certain amount of time.<br>The input can be any direct date (e.g. YYYY-MM-DD) or a human readable offset. Examples:<br>- "next thursday at 3pm do something funny"<br>- "do the dishes tomorrow"<br>- "in 3 days do the thing"<br>- "2d unmute someone"<br>Times are in UTC. |
+| `!remind cancel [uids...]` | `delete` | Delete your reminders. |
+| `!remind cancel all` | *none* | Delete *all* of your reminders. |
+| `!remind list` | *none* | PMs you your reminders. |
+| `!rfqc` | *none* | Sends you a ping every day to remind you to do your Faerie Quests. |
+| `!rfs [when]` | *none* | Pings you in 2 hours to visit Deserted Fairground Scratchcard, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rgd <when>` | *none* | Pings you in a user-defined amount of time to visit Grave Danger, also provides a link. |
+| `!rhs [when]` | *none* | Pings you in 30 minutes to visit Healing Springs, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rht` | *none* | Sends you a ping on the Hidden Tower's Discount day! (3rd Wednesday of each month). |
+| `!rics [when]` | *none* | Pings you in 6 hours to visit Ice Caves Scratchcard, also provides a link. Alternatively, you can provide an amount of time. |
+| `!riq [when]` | *none* | Pings you in 12 hours to visit Illusen's Quest, also provides a link. Alternatively, you can provide an amount of time. |
+| `!ris [when]` | *none* | Pings you in 30 minutes to buy a Icy Snowball from the Healing Springs, also provides a link. |
+| `!rit <when>` | *none* | Pings you in a user-defined amount of time to visit Mystery Island Training, also provides a link. |
+| `!rjq [when]` | *none* | Pings you in 12 hours to visit Jhudora's Quest, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rkad [when]` | `rkads` | Pings you in 6 minutes to visit Kads, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rmc [when]` | *none* | Pings you in 1 hour to visit Meteor Crash Site, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rnl <when>` | *none* | Pings you in a user-defined amount of time to visit NeoLodge, also provides a link. |
+| `!rpd <species>` | *none* | Sends you a ping on the desired Neopet Species' pet day. |
+| `!rps` | *none* | Sends you a ping every friday for premium scratchcards. |
+| `!rpt <when>` | *none* | Pings you in a user-defined amount of time to visit Swashbuckling Academy, also provides a link. |
+| `!rqe [when]` | *none* | Pings you in 7 hours and 7 minutes to visit Qasalan Expellibox, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rsh [when]` | *none* | Pings you in 1 hour to visit Symol Hole, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rss [when]` | *none* | Pings you in 30 minutes to buy a Sticky Snowball from the Healing Springs, also provides a link. |
+| `!rst <when>` | *none* | Pings you in a user-defined amount of time to visit Secret Ninja Training, also provides a link. |
+| `!rtys [when]` | *none* | Pings you in 6 hours to visit Test Your Strength, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rwex [when]` | *none* | Pings you in 24 hours to visit Wheel of Extravagance, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rwk [when]` | *none* | Pings you in 24 hours to visit Wheel of Knowledge, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rwme [when]` | *none* | Pings you in 40 minutes to visit Wheel of Mediocrity, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rwmn [when]` | *none* | Pings you in 24 hours to visit Wheel of Monotony, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rwoe [when]` | *none* | Pings you in 2 hours to visit Wheel of Excitement, also provides a link. Alternatively, you can provide an amount of time. |
+| `!rwom [when]` | *none* | Pings you in 2 hours to visit Wheel of Misfortune, also provides a link. Alternatively, you can provide an amount of time. |
+| `!selfmute <duration>` | `selftimeout` | Temporarily time-outs yourself for the specified duration.<br><br>The duration must be in a short time form, e.g. 4h. Can only time-out yourself for a maximum of 24 hours and a minimum of 5 minutes.<br><br>In order for this to work, the bot must have Moderate Members permissions. |
+
+
+
+[⬆ Back to top](#contents)
+
+## Stars
+A starboard to upvote posts.
+
+There are two ways to make use of this feature, the first is
+via reactions, react to a message with ⭐ and
+the bot will automatically add (or remove) it to the starboard.
+
+The second way is via Developer Mode. Enable it under Settings >
+Appearance > Developer Mode and then you get access to Copy ID
+and using the star/unstar commands.
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!star <message>` | *none* | Stars a message via message ID.<br><br>To star a message you should right click on the on a message and then<br>click "Copy ID". You must have Developer Mode enabled to get that<br>functionality.<br><br>It is recommended that you react to a message with ⭐ instead. *also works if you add the reaction in the starboard itself!*<br><br>You can only star a message once. |
+| `!star random [channel_or_member]` | *none* | Shows a random starred message. |
+| `!star show <message>` | *none* | Shows a starred message via its ID.<br><br>To get the ID of a message you should right click on the<br>message and then click "Copy ID". You must have<br>Developer Mode enabled to get that functionality. |
+| `!star stats [member]` | *none* | Shows statistics on the starboard usage of the server or a member. |
+| `!star who <message>` | *none* | Show who starred a message.<br><br>The ID can either be the starred message ID<br>or the message ID in the starboard channel. |
+| `!unstar <message>` | *none* | Unstars a message via message ID.<br><br>To unstar a message you should right click on the on a message and then<br>click "Copy ID". You must have Developer Mode enabled to get that<br>functionality. |
+
+
+
+[⬆ Back to top](#contents)
+
+## Stocks
+All commands relating to stocks. Shows stock data, and also subscribe to stock tickers! They work in public, or in PM!
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!stock <ticker> [period=1d\|5d\|1m\|all]` | `stocks` | Shows stock data for the ticker provided, with data from NeoStocks.info! |
+| `!stock now` | *none* | Shows an at-a-glance view of the stocks, with the stocks at 10, 15, 60, and above 60. |
+| `!stock sub <ticker...> [target]` | *none* | Subscribes you to all the stocks you list, at the target price given. When any of those stocks hit that price, you will be PMed for each one individually, once per day until it either goes down or you unsubscribe.<br><br>Target can be either one of: `1d`, `5d`, `1m`, `all`, OR, it can be a low number with an optional high number, like `60 100`. Default target = low of 60. |
+| `!stock sub all [target]` | *none* | Subscribes you to *all* of the stock tickers at the target price given. Default target = low of 60. |
+| `!stock subs` | *none* | PMs you all the stocks you're subscribed to. |
+| `!stock unsub <ticker...>` | *none* | Unsubscribes you from the stocks you list. |
+| `!stock unsub all` | *none* | Unsubscribes you from all stocks you're subscribed to. |
+
+
+
+[⬆ Back to top](#contents)
+
+## Utilities
+Various utility commands
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!charinfo <characters>` | *none* | Shows you information about a number of unicode characters.<br>Only up to 15 characters at a time. |
+| `!choose [choices...]` | *none* | Chooses between multiple choices. To denote multiple choices, you should use double quotes. |
+| `!choosebestof [times] [choices...]` | *none* | Chooses between multiple choices N times.<br>To denote multiple choices, you should use double quotes.<br>You can only choose up to 10001 times and only the top 10 results are shown. |
+| `!coin` | `flip` | Flips a coin for you. |
+| `!hex <hex_color>` | *none* | Displays the hex color sent. |
+| `!isneoup` | `down`, `isup` | Tells you if neopets is up or down. |
+| `!roll <sides>` | `dice`, `diceroll` | Rolls a #-sided die for you. You'll get a number from 1 to #. |
+
+
+
+[⬆ Back to top](#contents)
+
+# Event Commands
+
+## Altador Cup
+These commands will only work when the *#altador-cup* channel is in the Events category of the Darigan Citadel server.
+
+| Command | Aliases | Info |
+|:-------:|:-------:|:-----|
+| `!ac` | *none* | Shows AC game score system. |
+| `!acstats` | `acs` | Shows current Altador Cup role standings. *This command only works in the Darigan Citadel Server!* |
+| `!rank <username> [year]` | `acrank` | Flaunt your rank! Shows data only if the user has joined a team, obviously. |
+| `!suggestteam` | `suggest` | Suggests your team for this year. Does not change. *This command only works in the Darigan Citadel Server!* |
+
+
+
+[⬆ Back to top](#contents)
